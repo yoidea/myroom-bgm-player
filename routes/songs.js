@@ -5,6 +5,7 @@ var router = express.Router();
 var fs = require('fs');
 
 var isPlaying = false;
+var current = "";
 
 var ev = new EventEmitter;
 ev.on('play', function() {
@@ -12,12 +13,14 @@ ev.on('play', function() {
   var playlist = JSON.parse(json);
   if (playlist.length == 0) {
     isPlaying = false;
+    current = "";
     return;
   }
   var url = playlist[0].url;
   console.log("play: ", url);
   playlist.shift();
   fs.writeFileSync("playlist.json", JSON.stringify(playlist));
+  current = url;
   playSong(url);
 });
 
@@ -68,6 +71,18 @@ router.get('/start', function(req, res, next) {
 router.get('/stop', function(req, res, next) {
   var message = {"message": "Stop BGM!"};
   fs.writeFileSync("playlist.json", JSON.stringify([]));
+  res.header('Content-Type', 'application/json; charset=utf-8')
+  res.send(message);
+});
+
+router.get('/info', function(req, res, next) {
+  var json = fs.readFileSync("playlist.json");
+  var playlist = JSON.parse(json);
+  var count = playlist.length;
+  var message = {
+    "playing": current,
+    "queued": count + " songs"
+  };
   res.header('Content-Type', 'application/json; charset=utf-8')
   res.send(message);
 });
