@@ -53,16 +53,17 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/start', function(req, res, next) {
-  var message = {"message": "Already playing"};
-  if (!isPlaying) {
-    message = {"message": "Play start!"};
-    isPlaying = true;
-    ev.emit('play');
-  }
   var json = fs.readFileSync("playlist.json");
   var playlist = JSON.parse(json);
+  var message = {"message": "Already playing"};
   if (playlist.length == 0) {
     message = {"message": "Add songs from `POST /songs`"};
+  } else {
+    if (!isPlaying) {
+      message = {"message": "Play start!"};
+      isPlaying = true;
+      ev.emit('play');
+    }
   }
   res.header('Content-Type', 'application/json; charset=utf-8')
   res.send(message);
