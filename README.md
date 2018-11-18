@@ -2,11 +2,20 @@
 
 ## Install
 
+### Linux
 ```
 $ apt-get install mpv
 $ pip3 install youtube-dl
 $ pip3 install mps-youtube
 $ mpsyt set player mpv
+$ yarn
+```
+
+### Mac
+```
+$ brew install mplayer
+$ brew install youtube-dl
+$ brew install mps-youtube
 $ yarn
 ```
 
@@ -20,25 +29,25 @@ $ yarn start
 
 ### Add songs
 ```
-$ curl -X POST #{hostname}:3000/songs -d 'url=#{youtube_url}'
+$ curl -X POST #{hostname}/songs -d 'url=#{youtube_url}'
 ```
 
 ### Show playlist
 ```
-$ curl #{hostname}:3000/songs
+$ curl #{hostname}/songs
 ```
 
 ### Start playing songs
 ```
-$ curl #{hostname}:3000/songs/start
+$ curl #{hostname}/songs/start
 ```
 
 ### Show infomation
 ```
-$ curl #{hostname}:3000/songs/info
+$ curl #{hostname}/songs/info
 ```
 
 ### Stop playing songs
 ```
-$ curl #{hostname}:3000/songs/stop
+$ curl #{hostname}/songs/stop
 ```
