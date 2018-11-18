@@ -37,17 +37,12 @@ $ curl -X POST #{hostname}/songs -d 'url=#{youtube_url}'
 $ curl #{hostname}/songs
 ```
 
-### Start playing songs
-```
-$ curl #{hostname}/songs/start
-```
-
 ### Show infomation
 ```
 $ curl #{hostname}/songs/info
 ```
 
-### Stop playing songs
+### Reset queue
 ```
-$ curl #{hostname}/songs/stop
+$ curl #{hostname}/songs/reset
 ```
